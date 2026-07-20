@@ -16,11 +16,11 @@ class CodeBuddyProvider:
         "en": "Tencent CodeBuddy, Beta version, native installer"
     }
 
-    # 官方安装 URL (当前标注 Beta)
+    # 官方安装 URL (通过 npm 安装)
     INSTALL_URLS = {
-        "macos": "https://codebuddy.qq.com/install/mac",
-        "linux": "https://codebuddy.qq.com/install/linux",
-        "windows": "https://codebuddy.qq.com/install/win"
+        "macos": "npm install -g @tencent-ai/codebuddy-code",
+        "linux": "npm install -g @tencent-ai/codebuddy-code",
+        "windows": "npm install -g @tencent-ai/codebuddy-code"
     }
 
     @classmethod
@@ -41,19 +41,23 @@ class CodeBuddyProvider:
         Returns:
             ShellResult
         """
-        url = cls.get_install_url()
-        platform = get_platform()
+        # 检查 npm 是否可用
+        npm_check = run_command(["which", "npm"], timeout=5)
+        if not npm_check.success:
+            return ShellResult("", "npm 未安装，请先安装 Node.js 和 npm", 1)
 
-        if platform == "windows":
-            return run_command(["powershell", "-c",
-                f"Invoke-WebRequest -Uri '{url}' -OutFile 'codebuddy-installer.exe'; "
-                f"Start-Process -FilePath '.\\codebuddy-installer.exe' -Wait"
-            ], timeout=120)
-        else:
+        # macOS/Linux 需要 sudo 安装全局包
+        if get_platform() in ["macos", "linux"]:
             return run_command([
-                "bash", "-c",
-                f"curl -fsSL '{url}' | bash"
-            ], timeout=120)
+                "sudo", "npm", "install", "-g",
+                "@tencent-ai/codebuddy-code"
+            ], timeout=180)
+        else:
+            # Windows
+            return run_command([
+                "npm", "install", "-g",
+                "@tencent-ai/codebuddy-code"
+            ], timeout=180)
 
     @classmethod
     def verify(cls) -> bool:

@@ -44,18 +44,25 @@
 
 ## 🚀 快速开始
 
-### 方式一：直接安装（推荐）
+### 方式一：选择安装（推荐）
 
 ```bash
 # 克隆仓库
 git clone https://github.com/hongxiaojun/ai-cli-kickstarter.git
 cd ai-cli-kickstarter
 
-# 直接安装（自动检测环境）
+# 选择安装（支持 Qwen/Kimi/CodeBuddy）
+python3 install_all.py
+```
+
+### 方式二：快速安装 Qwen
+
+```bash
+# 直接安装 Qwen Code（最简单）
 python3 install.py
 ```
 
-### 方式二：TUI 界面安装
+### 方式三：TUI 界面安装
 
 ```bash
 # 运行 TUI 安装器
@@ -69,13 +76,26 @@ python3 run.py
 
 ---
 
+## ⚠️ CodeBuddy CLI 注意事项
+
+**CodeBuddy CLI（腾讯）需要额外条件：**
+- ✅ 需要 Node.js 和 npm
+- ✅ 需要 sudo 权限进行全局安装
+- ✅ 安装命令：`sudo npm install -g @tencent-ai/codebuddy-code`
+
+**推荐使用 Qwen Code 或 Kimi Code**（无需额外依赖）
+
+---
+
 ## 📋 支持的 AI CLI
 
-| Provider | 特点 | 命令 |
-|----------|------|------|
-| **Qwen Code** | 通义千问，国内友好，独立安装器 | `qwen` |
-| **Kimi Code** | 月之暗面，首次需 `/login` | `kimi` |
-| **CodeBuddy CLI** | 腾讯生态，Beta 版本 | `codebuddy` |
+| Provider | 特点 | 命令 | 要求 |
+|----------|------|------|------|
+| **Qwen Code** | 通义千问，国内友好，独立安装器 | `qwen` | ✅ 无额外要求 |
+| **Kimi Code** | 月之暗面，首次需 `/login` | `kimi` | ✅ 无额外要求 |
+| **CodeBuddy CLI** | 腾讯生态，Beta 版本 | `codebuddy` | ⚠️ 需要 Node.js + npm + sudo |
+
+**推荐使用 Qwen Code 或 Kimi Code**（开箱即用）
 
 ---
 
