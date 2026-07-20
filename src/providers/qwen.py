@@ -65,6 +65,21 @@ class QwenProvider:
         Returns:
             bool: 是否安装成功
         """
+        import os
+        platform = get_platform()
+
+        # 检查默认安装位置 (Qwen 通常安装到 ~/.qwen)
+        if platform in ("macos", "linux"):
+            qwen_paths = [
+                os.path.expanduser("~/.qwen/bin/qwen"),
+                os.path.expanduser("~/qwen-client-darwin-x64/qwen"),
+                "/usr/local/bin/qwen"
+            ]
+            for qwen_path in qwen_paths:
+                if os.path.exists(qwen_path) and os.access(qwen_path, os.X_OK):
+                    return True
+
+        # 检查 PATH 中的 qwen
         result = run_command([cls.COMMAND, "--version"], timeout=10)
         return result.success
 

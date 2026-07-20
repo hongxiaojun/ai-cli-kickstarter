@@ -65,6 +65,16 @@ class KimiProvider:
         Returns:
             bool: 是否安装成功
         """
+        import os
+        platform = get_platform()
+
+        # 检查默认安装位置
+        if platform in ("macos", "linux"):
+            kimi_path = os.path.expanduser("~/.kimi-code/bin/kimi")
+            if os.path.exists(kimi_path) and os.access(kimi_path, os.X_OK):
+                return True
+
+        # 检查 PATH 中的 kimi
         result = run_command([cls.COMMAND, "--version"], timeout=10)
         return result.success
 

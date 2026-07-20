@@ -67,6 +67,21 @@ class CodeBuddyProvider:
         Returns:
             bool: 是否安装成功
         """
+        import os
+        platform = get_platform()
+
+        # CodeBuddy 通过 npm 全局安装，检查 npm 全局路径
+        if platform in ("macos", "linux"):
+            npm_paths = [
+                "/usr/local/bin/codebuddy",
+                os.path.expanduser("~/.npm-global/bin/codebuddy"),
+                os.path.expanduser("~/node_modules/.bin/codebuddy")
+            ]
+            for cb_path in npm_paths:
+                if os.path.exists(cb_path) and os.access(cb_path, os.X_OK):
+                    return True
+
+        # 检查 PATH 中的 codebuddy
         result = run_command([cls.COMMAND, "--version"], timeout=10)
         return result.success
 
