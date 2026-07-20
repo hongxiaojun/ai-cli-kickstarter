@@ -52,10 +52,25 @@ class KimiProvider:
             ], timeout=120)
         else:
             # macOS/Linux: 使用官方安装脚本
-            return run_command([
+            # 先验证 URL 可访问性
+            check_result = run_command([
                 "bash", "-c",
-                f"curl -fsSL '{url}' | bash"
-            ], timeout=120)
+                f"curl -fsSL '{url}' | head -1"
+            ], timeout=10)
+
+            if check_result.stdout.startswith("#!/") or "bash" in check_result.stdout:
+                # URL 返回的是脚本，继续安装
+                return run_command([
+                    "bash", "-c",
+                    f"curl -fsSL '{url}' | bash"
+                ], timeout=120)
+            else:
+                # URL 可能返回了错误页面
+                return ShellResult("",
+                    f"安装脚本下载失败。URL 可能不可用或返回了错误页面。\n"
+                    f"请手动访问: {url}\n"
+                    f"返回内容: {check_result.stdout[:100] if check_result.stdout else '无'}",
+                    1)
 
     @classmethod
     def verify(cls) -> bool:
