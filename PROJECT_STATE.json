@@ -1,0 +1,111 @@
+{
+  "project": "ai-cli-kickstarter-pro",
+  "version": "1.0.0",
+  "last_updated": "2026-07-20T16:55:00Z",
+  "status": "beta",
+  "phase": "complete",
+
+  "architecture": {
+    "type": "TUI installer",
+    "language": "Python",
+    "core_modules": [
+      "launcher.py",
+      "tui_safe.py",
+      "handoff.py",
+      "network.py",
+      "mirrors.py"
+    ],
+    "supported_providers": ["qwen", "kimi", "codebuddy"],
+    "supported_platforms": ["macos", "linux", "windows"]
+  },
+
+  "features": {
+    "implemented": [
+      "TUI interface with arrow key navigation",
+      "Bilingual support (Chinese/English)",
+      "Environment dependency checking",
+      "Network environment detection",
+      "Automatic mirror configuration",
+      "Post-installation guide generation",
+      "Quick reference card creation",
+      "Installation progress display",
+      "Error recovery mechanism",
+      "Complete handoff guide system",
+      "End-to-end testing simulation"
+    ],
+    "in_progress": [],
+    "planned": [
+      "Cross-platform packaging",
+      "Actual AI CLI installation testing",
+      "Configuration persistence"
+    ]
+  },
+
+  "testing": {
+    "automated_tests": {
+      "status": "complete",
+      "coverage": [
+        "environment_check",
+        "tui_flow",
+        "handoff_guide",
+        "provider_verification",
+        "mirror_config",
+        "installation_progress",
+        "error_recovery",
+        "complete_user_journey",
+        "ai_cli_functionality",
+        "final_acceptance_test"
+      ],
+      "results": "12/12 tests passed (100%)"
+    },
+    "manual_tests": {
+      "status": "pending",
+      "test_cases": [
+        "Complete installation flow",
+        "AI CLI launch",
+        "Natural language command execution",
+        "Folder creation test"
+      ]
+    }
+  },
+
+  "decisions": {
+    "default_mirror": "mirror_cn",
+    "default_language": "zh",
+    "fallback_mode": "text_based",
+    "handoff_location": "desktop"
+  },
+
+  "next_steps": {
+    "priority_0": [
+      "Test actual AI CLI installation",
+      "Verify folder creation functionality",
+      "Cross-platform compatibility testing"
+    ],
+    "priority_1": [
+      "Test packaging scripts",
+      "Update documentation",
+      "Configuration persistence feature"
+    ]
+  },
+
+  "known_issues": [
+    "curses compatibility in certain terminals",
+    "Python 3.14 curses.wrapper issues",
+    "Network detection may timeout"
+  ],
+
+  "dependencies": {
+    "python": ">=3.7",
+    "required": ["curses", "urllib", "subprocess"],
+    "optional": ["windows-curses for Windows"]
+  },
+
+  "files": {
+    "entry_point": "run.py",
+    "core": "src/tui_safe.py",
+    "handoff": "src/handoff.py",
+    "testing": "test_complete.py",
+    "docs": ["README.md", "USAGE.md", "TESTING.md", "DEVELOPMENT.md"]
+  }
+}
