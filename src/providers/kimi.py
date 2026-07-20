@@ -16,11 +16,11 @@ class KimiProvider:
         "en": "Kimi Code, China-friendly, requires /login on first launch"
     }
 
-    # 官方安装 URL
+    # 官方安装 URL (Kimi Code 新版安装器)
     INSTALL_URLS = {
-        "macos": "https://kimi.moonshot.cn/download/client/mac",
-        "linux": "https://kimi.moonshot.cn/download/client/linux",
-        "windows": "https://kimi.moonshot.cn/download/client/win"
+        "macos": "https://code.kimi.com/kimi-code/install.sh",
+        "linux": "https://code.kimi.com/kimi-code/install.sh",
+        "windows": "https://code.kimi.com/kimi-code/install.sh"
     }
 
     @classmethod

@@ -94,34 +94,12 @@ def check_curl():
 
 
 def detect_network():
-    """检测网络环境"""
-    print_step(4, 5, "检测网络环境 / Detecting network")
+    """检测网络环境（已简化，所有 Provider 均为国内服务）"""
+    print_step(4, 5, "配置国内环境 / Configuring CN environment")
 
-    try:
-        import urllib.request
-
-        # 检测百度（国内）
-        try:
-            urllib.request.urlopen("https://www.baidu.com", timeout=3)
-            print_ok("百度可访问 - 国内网络 / Baidu reachable - CN network")
-            return "cn"
-        except:
-            pass
-
-        # 检测 Google（国际）
-        try:
-            urllib.request.urlopen("https://www.google.com/generate_204", timeout=3)
-            print_ok("Google 可访问 - 国际网络 / Google reachable - International")
-            return "international"
-        except:
-            pass
-
-        print_info("网络受限 / Network restricted")
-        return "unknown"
-
-    except Exception as e:
-        print_error(f"网络检测失败: {e}")
-        return "unknown"
+    # 所有 Provider（Qwen、Kimi、CodeBuddy）均为国内服务
+    print_ok("默认使用国内镜像 / Using CN mirror by default")
+    return "cn"
 
 
 def launch_tui(network_env: str):

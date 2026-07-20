@@ -419,7 +419,7 @@ class InstallerStateMachine:
                 self._handle_language_input()
             elif self.state == State.MENU_PROVIDER:
                 self._handle_provider_input()
-            elif self.state in (State.CHECK_NETWORK, State.HANDOFF_PROMPT):
+            elif self.state == State.HANDOFF_PROMPT:
                 self._handle_continue_input()
             elif self.state == State.MENU_CONFIRM:
                 self._handle_confirm_input()
@@ -465,7 +465,8 @@ class InstallerStateMachine:
             current_idx = (current_idx - 1) % len(providers)
             self.set_provider(providers[current_idx])
         elif key in (ord('\n'), ord(' '), ord('1'), ord('2'), ord('3')):
-            self.transition_to(State.CHECK_NETWORK)
+            # 跳过网络检测，直接进入确认页面（所有 Provider 均为国内服务）
+            self.transition_to(State.MENU_CONFIRM)
 
     def _handle_continue_input(self):
         """处理继续输入"""
@@ -474,9 +475,8 @@ class InstallerStateMachine:
         except:
             pass
 
-        if self.state == State.CHECK_NETWORK:
-            self.transition_to(State.MENU_CONFIRM)
-        elif self.state == State.HANDOFF_PROMPT:
+        # CHECK_NETWORK 状态已跳过（所有 Provider 均为国内服务）
+        if self.state == State.HANDOFF_PROMPT:
             self.transition_to(State.DONE)
 
     def _save_handoff_guide(self):
@@ -668,17 +668,17 @@ def run_tui(network_env: str = "cn"):
     """运行 TUI 界面
 
     Args:
-        network_env: 网络环境 ("cn", "international", "unknown")
+        network_env: 网络环境（已废弃，所有 Provider 均为国内服务）
     """
     try:
         app = InstallerStateMachine()
 
-        # 预设网络检测结果
+        # 默认使用国内镜像（所有 Provider 均为国内服务）
         app.network_info = {
-            "location": network_env,
-            "google": "unreachable" if network_env == "cn" else "reachable",
-            "baidu": "reachable" if network_env == "cn" else "unreachable",
-            "recommended_mirror": "mirror_cn" if network_env == "cn" else "official"
+            "location": "cn",
+            "google": "unreachable",
+            "baidu": "reachable",
+            "recommended_mirror": "mirror_cn"
         }
 
         # 初始化为语言选择菜单
