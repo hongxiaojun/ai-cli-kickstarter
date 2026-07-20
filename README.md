@@ -130,6 +130,39 @@ python3 test_e2e_simulation.py
 
 ---
 
+## 📦 打包
+
+### 快速打包
+
+```bash
+# 一键打包（自动检测平台）
+./build.sh
+```
+
+### 平台特定打包
+
+**macOS**:
+```bash
+./build/macos.sh
+# 产物: dist/ai-cli-kickstarter.app
+```
+
+**Windows**:
+```batch
+build\windows.bat
+# 产物: dist\ai-cli-kickstarter.exe
+```
+
+**Linux**:
+```bash
+./build/linux.sh
+# 产物: dist/ai-cli-kickstarter/ai-cli-kickstarter
+```
+
+详细打包指南请查看 [BUILD_GUIDE.md](BUILD_GUIDE.md)
+
+---
+
 ## 📖 使用流程
 
 ### 安装流程
